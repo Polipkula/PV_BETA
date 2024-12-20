@@ -123,7 +123,7 @@ The Chat Application is a client-server-based messaging system built in Python. 
   - [Python Documentation](https://docs.python.org/3/): Reference for core libraries.
   - [Real Python](https://realpython.com/): Tutorials on socket programming.
   - [Stack Overflow](https://stackoverflow.com/): Community support for troubleshooting.
-  - ChatGPT: Assistance with command and feature implementation.
+  - ChatGPT: Assistance with UnitTesting.
 
 - **Educational Institution:**
   - SPŠE Ječná: Hodiny PV.
