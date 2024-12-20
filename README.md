@@ -10,36 +10,20 @@ This document provides a comprehensive overview of the Chat Application. It incl
 
 ### **a) Overview**
 
-The Chat Application is a client-server-based messaging system built in Python. It uses sockets for communication, threading for handling multiple clients, and a Tkinter GUI for the client interface.
+The Chat Application is a client-server-based messaging system built in Python. It uses sockets for communication and threading to handle multiple clients concurrently. The system supports both public and private messaging and includes server statistics tracking.
 
 ### **b) Application Structure**
 
 1. **Server:**
-
-   - Manages client connections.
+   - Manages client connections and disconnections.
    - Handles incoming messages and broadcasts them to connected clients.
-   - Logs all messages and events in a `chat_log.txt` file.
+   - Tracks server uptime, total messages sent, and active users.
+   - Logs all messages and events into a `chat_log.txt` file.
 
 2. **Client:**
-
    - Connects to the server.
-   - Provides a graphical interface for sending and receiving messages.
-   - Allows users to execute chat commands like private messages, user list requests, and disconnections.
-
-### **c) System Diagram**
-
-```text
-+------------+            +--------------+            +------------+
-|  Client A  | <--------> |   Server     | <--------> |  Client B  |
-+------------+            +--------------+            +------------+
-```
-
-### **d) Main Functions and Features**
-
-- **Messaging:** Supports group chat, private messages, and all-chat mode.
-- **User Management:** Allows listing and disconnecting users.
-- **Error Handling:** Handles unexpected disconnections and command validation.
-- **Data Persistence:** Saves chat history for future reference.
+   - Provides a command-line interface for sending and receiving messages.
+   - Allows users to execute various chat commands such as private messages, user list requests, and server statistics.
 
 ---
 
@@ -50,121 +34,98 @@ The Chat Application is a client-server-based messaging system built in Python. 
 1. Open a terminal.
 2. Navigate to the project directory.
 3. Run the following command:
-
    ```bash
    python Chat_app.py
    ```
 4. When prompted, enter:
-
    ```
    Start as server (s) or client (c)? s
    ```
-5. The server will start and listen for incoming connections.
+5. The server will start and listen for incoming connections on the configured port.
 
 ### **b) Starting the Client**
 
 1. Open another terminal or machine.
 2. Navigate to the project directory.
 3. Run the following command:
-
    ```bash
    python Chat_app.py
    ```
 4. When prompted, enter:
-
    ```
    Start as server (s) or client (c)? c
    ```
-5. The client GUI will open, allowing message exchange with other connected clients.
-
-### **c) Supported Commands**
-
-- **Sending a Private Message:**
-
-  ```text
-  /private <username> <message>
-  ```
-  Sends a private message to a specific user.
-
-- **Sending a Message to All Users:**
-
-  ```text
-  /all <message>
-  ```
-  Sends a message visible to all connected users.
-
-- **Listing All Users:**
-
-  ```text
-  /list
-  ```
-  Displays the list of currently connected users.
-
-- **Viewing Chat History:**
-
-  ```text
-  /history
-  ```
-  Displays the saved chat history from previous sessions.
-
-- **Disconnecting:**
-
-  ```text
-  /disconnect
-  ```
-  Disconnects the client from the server.
+5. Follow the prompts to either log in or register.
+6. Once connected, you can start sending messages or executing commands.
 
 ---
 
-## **4. Test Reports and Bug Fixes**
+## **4. Supported Commands**
+
+| **Command**                    | **Description**                                                                                                                                 |
+|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| `/help`                        | Displays a list of all available commands.                                                                                                     |
+| `/list`                        | Lists all currently connected users.                                                                                                           |
+| `/private <username> <message>`| Sends a private message to a specific user.                                                                                                    |
+| `/stats`                       | Displays server statistics, including active users, total messages sent, and server uptime.                                                    |
+| `/quit`                        | Disconnects the client from the server.                                                                                                        |
+
+---
+
+## **5. Features and Updates**
+
+### **a) Key Features**
+
+- **Real-Time Messaging:** Supports both group chat and private messaging.
+- **User Management:** Allows clients to log in, register, and view connected users.
+- **Server Statistics:** Tracks active users, total messages sent, and uptime, available via the `/stats` command.
+- **Command Parsing:** Handles various commands seamlessly using structured message parsing.
+- **Logging:** All events, messages, and errors are logged in `chat_log.txt`.
+
+### **b) Recent Updates**
+- Added `/stats` command for server statistics.
+- Enhanced error handling for invalid or malformed commands.
+- Improved logging to track `/help`, `/list`, and `/private` commands.
+- Fixed issues with user disconnections and message handling.
+
+---
+
+## **6. Test Reports and Bug Fixes**
 
 ### **a) Test Results Summary**
 
-- **Test Environment:**
-  - Python 3.x, Windows/Linux.
-  - Libraries used: `unittest`, `socket`, `threading`, `tkinter`, `logging`.
+- **Environment:**
+  - Python 3.x, tested on Windows/Linux.
+  - Libraries: `unittest`, `socket`, `threading`, `logging`.
 
 ### **b) Test Coverage**
 
-- **Server Tests:**
-
-  - Starting and stopping the server.
-  - Handling multiple client connections.
-  - Broadcasting messages correctly.
-  - Logging events and messages.
-
-- **Client Tests:**
-
-  - Establishing connection to the server.
-  - Sending and receiving messages.
-  - Executing client-side commands (`/private`, `/list`, `/disconnect`, `/all`).
+| **Component** | **Tested Functions**                                        |
+|---------------|-------------------------------------------------------------|
+| **Server**    | Startup, client connection handling, broadcast, statistics. |
+| **Client**    | Message sending, command handling, disconnection.           |
+| **Commands**  | `/help`, `/list`, `/private`, `/stats`, `/quit`.            |
 
 ### **c) Found Bugs and Fixes**
 
-| Bug Description                    | Status    | Solution                             |
-| ---------------------------------- | --------- | ------------------------------------ |
-| Clients not disconnecting properly | **Fixed** | Improved disconnection handling      |
-| Incomplete private messages        | **Fixed** | Improved command parsing             |
-| Logging failures on shutdown       | **Fixed** | Corrected log file closure           |
-| Unresponsive UI during load        | **Fixed** | Added threading for background tasks |
+| Bug Description                     | Status     | Solution                        |
+|-------------------------------------|------------|---------------------------------|
+| Double username prompt on `/list`  | **Fixed**  | Updated list command handler.  |
+| Messages not appearing immediately | **Fixed**  | Implemented threading fixes.   |
+| Server stats incorrect uptime       | **Fixed**  | Corrected time calculations.   |
+| Double username on use of command    | **Broken**  | |
 
 ---
 
-## **5. Sources and Consultations**
+## **7. Sources and Consultations**
 
 - **Online Resources:**
-
   - [Python Documentation](https://docs.python.org/3/): Reference for core libraries.
   - [Real Python](https://realpython.com/): Tutorials on socket programming.
   - [Stack Overflow](https://stackoverflow.com/): Community support for troubleshooting.
-  - [Wikipedia](https://www.wikipedia.org/): General technical and programming references.
-  - ChatGPT: Assistance with README creation.
+  - ChatGPT: Assistance with command and feature implementation.
 
 - **Educational Institution:**
+  - SPŠE Ječná: Hodiny PV.
 
-  SPŠE Ječná: Hodiny PV - Support and project consultations with teachers and mentors.
-
----
-
-Thank you for reviewing the Chat Application Documentation!
 
