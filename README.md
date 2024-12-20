@@ -1,194 +1,170 @@
-Chat Application - Documentation
+# Chat Application - Documentation
 
-1. Introduction
+## **1. Introduction**
 
 This document provides a comprehensive overview of the Chat Application. It includes descriptions of how the program works, testing reports, bug lists, and sources of information consulted during development.
 
-2. How the Program Works
+---
 
-a) Overview
+## **2. How the Program Works**
+
+### **a) Overview**
 
 The Chat Application is a client-server-based messaging system built in Python. It uses sockets for communication, threading for handling multiple clients, and a Tkinter GUI for the client interface.
 
-b) Application Structure
+### **b) Application Structure**
 
-Server:
+1. **Server:**
 
-Manages client connections.
+   - Manages client connections.
+   - Handles incoming messages and broadcasts them to connected clients.
+   - Logs all messages and events in a `chat_log.txt` file.
 
-Handles incoming messages and broadcasts them to connected clients.
+2. **Client:**
 
-Logs all messages and events in a chat_log.txt file.
+   - Connects to the server.
+   - Provides a graphical interface for sending and receiving messages.
+   - Allows users to execute chat commands like private messages, user list requests, and disconnections.
 
-Client:
+### **c) System Diagram**
 
-Connects to the server.
-
-Provides a graphical interface for sending and receiving messages.
-
-Allows users to execute chat commands like private messages, user list requests, and disconnections.
-
-c) System Diagram
-
+```text
 +------------+            +--------------+            +------------+
 |  Client A  | <--------> |   Server     | <--------> |  Client B  |
 +------------+            +--------------+            +------------+
+```
 
-d) Main Functions and Features
+### **d) Main Functions and Features**
 
-Messaging: Supports group chat, private messages, and all-chat mode.
+- **Messaging:** Supports group chat, private messages, and all-chat mode.
+- **User Management:** Allows listing and disconnecting users.
+- **Error Handling:** Handles unexpected disconnections and command validation.
+- **Data Persistence:** Saves chat history for future reference.
 
-User Management: Allows listing and disconnecting users.
+---
 
-Error Handling: Handles unexpected disconnections and command validation.
+## **3. How to Use the Program**
 
-Data Persistence: Saves chat history for future reference.
+### **a) Starting the Server**
 
-3. How to Use the Program
+1. Open a terminal.
+2. Navigate to the project directory.
+3. Run the following command:
 
-a) Starting the Server
+   ```bash
+   python Chat_app.py
+   ```
+4. When prompted, enter:
 
-Open a terminal.
+   ```
+   Start as server (s) or client (c)? s
+   ```
+5. The server will start and listen for incoming connections.
 
-Navigate to the project directory.
+### **b) Starting the Client**
 
-Run the following command:
+1. Open another terminal or machine.
+2. Navigate to the project directory.
+3. Run the following command:
 
-python Chat_app.py
+   ```bash
+   python Chat_app.py
+   ```
+4. When prompted, enter:
 
-When prompted, enter:
+   ```
+   Start as server (s) or client (c)? c
+   ```
+5. The client GUI will open, allowing message exchange with other connected clients.
 
-Start as server (s) or client (c)? s
+### **c) Supported Commands**
 
-The server will start and listen for incoming connections.
+- **Sending a Private Message:**
 
-b) Starting the Client
+  ```text
+  /private <username> <message>
+  ```
+  Sends a private message to a specific user.
 
-Open another terminal or machine.
+- **Sending a Message to All Users:**
 
-Navigate to the project directory.
+  ```text
+  /all <message>
+  ```
+  Sends a message visible to all connected users.
 
-Run the following command:
+- **Listing All Users:**
 
-python Chat_app.py
+  ```text
+  /list
+  ```
+  Displays the list of currently connected users.
 
-When prompted, enter:
+- **Viewing Chat History:**
 
-Start as server (s) or client (c)? c
+  ```text
+  /history
+  ```
+  Displays the saved chat history from previous sessions.
 
-The client GUI will open, allowing message exchange with other connected clients.
+- **Disconnecting:**
 
-c) Supported Commands
+  ```text
+  /disconnect
+  ```
+  Disconnects the client from the server.
 
-Sending a Private Message:
+---
 
-/private <username> <message>
+## **4. Test Reports and Bug Fixes**
 
-Sends a private message to a specific user.
+### **a) Test Results Summary**
 
-Sending a Message to All Users:
+- **Test Environment:**
+  - Python 3.x, Windows/Linux.
+  - Libraries used: `unittest`, `socket`, `threading`, `tkinter`, `logging`.
 
-/all <message>
+### **b) Test Coverage**
 
-Sends a message visible to all connected users.
+- **Server Tests:**
 
-Listing All Users:
+  - Starting and stopping the server.
+  - Handling multiple client connections.
+  - Broadcasting messages correctly.
+  - Logging events and messages.
 
-/list
+- **Client Tests:**
 
-Displays the list of currently connected users.
+  - Establishing connection to the server.
+  - Sending and receiving messages.
+  - Executing client-side commands (`/private`, `/list`, `/disconnect`, `/all`).
 
-Viewing Chat History:
+### **c) Found Bugs and Fixes**
 
-/history
+| Bug Description                    | Status    | Solution                             |
+| ---------------------------------- | --------- | ------------------------------------ |
+| Clients not disconnecting properly | **Fixed** | Improved disconnection handling      |
+| Incomplete private messages        | **Fixed** | Improved command parsing             |
+| Logging failures on shutdown       | **Fixed** | Corrected log file closure           |
+| Unresponsive UI during load        | **Fixed** | Added threading for background tasks |
 
-Displays the saved chat history from previous sessions.
+---
 
-Disconnecting:
+## **5. Sources and Consultations**
 
-/disconnect
+- **Online Resources:**
 
-Disconnects the client from the server.
+  - [Python Documentation](https://docs.python.org/3/): Reference for core libraries.
+  - [Real Python](https://realpython.com/): Tutorials on socket programming.
+  - [Stack Overflow](https://stackoverflow.com/): Community support for troubleshooting.
+  - [Wikipedia](https://www.wikipedia.org/): General technical and programming references.
+  - ChatGPT: Assistance with README creation.
 
-4. Test Reports and Bug Fixes
+- **Educational Institution:**
 
-a) Test Results Summary
+  SPŠE Ječná: Hodiny PV - Support and project consultations with teachers and mentors.
 
-Test Environment:
-
-Python 3.x, Windows/Linux.
-
-Libraries used: unittest, socket, threading, tkinter, logging.
-
-b) Test Coverage
-
-Server Tests:
-
-Starting and stopping the server.
-
-Handling multiple client connections.
-
-Broadcasting messages correctly.
-
-Logging events and messages.
-
-Client Tests:
-
-Establishing connection to the server.
-
-Sending and receiving messages.
-
-Executing client-side commands (/private, /list, /disconnect, /all).
-
-c) Found Bugs and Fixes
-
-Bug Description
-
-Status
-
-Solution
-
-Clients not disconnecting properly
-
-Fixed
-
-Improved disconnection handling
-
-Incomplete private messages
-
-Fixed
-
-Improved command parsing
-
-Logging failures on shutdown
-
-Fixed
-
-Corrected log file closure
-
-Double username after using command
-
-Broken
-
-
-
-5. Sources and Consultations
-
-Online Resources:
-
-Python Documentation: Reference for core libraries.
-
-Real Python: Tutorials on socket programming.
-
-Stack Overflow: Community support for troubleshooting.
-
-Wikipedia: General technical and programming references.
-
-ChatGPT: Assistance with README creation.
-
-Educational Institution:
-
-SPŠE Ječná: Hodiny PV - Support and project consultations with teachers and mentors.
+---
 
 Thank you for reviewing the Chat Application Documentation!
 
